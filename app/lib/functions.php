@@ -788,6 +788,9 @@ function isSafeToExecute($max_execution_time = null, $options = [])
 /* Update ping */
 function checkUpdates()
 {
+    // Update check disabled: never phone home for release info.
+    return;
+
     try {
         $safe_time = 5;
         $max_execution_time = ini_get('max_execution_time'); // Store the limit
@@ -827,6 +830,9 @@ function checkUpdates()
 }
 
 function updateCheveretoNews() {
+    // Update check disabled: never phone home for the news feed.
+    return [];
+
     try {
         $chevereto_news = G\fetch_url('https://blog.chevereto.com/feed.json');
         $chevereto_news = json_decode($chevereto_news)->items;
