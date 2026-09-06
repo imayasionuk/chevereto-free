@@ -217,7 +217,7 @@ $route = function ($handler) {
         } else {
             $meta_description = _s('%a album hosted in %w', ['%a' => $album['name'], '%w' => CHV\getSetting('website_name')]);
         }
-        $handler::setVar('meta_description', htmlspecialchars($meta_description));
+        $handler::setVar('meta_description', htmlspecialchars($meta_description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
 
         // Items editor
         if ($handler::getCond('content_manager') or $is_owner) {

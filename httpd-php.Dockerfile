@@ -1,5 +1,5 @@
 FROM composer:latest as composer
-FROM php:7.4-apache
+FROM php:8.3-apache
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y \
@@ -78,8 +78,7 @@ RUN composer install \
     --working-dir=/var/www/html \
     --prefer-dist \
     --no-progress \
-    --classmap-authoritative \
-    --ignore-platform-reqs
+    --classmap-authoritative
 RUN chown www-data: /var/www/html -R
 COPY sync.sh /var/www/sync.sh
 RUN chmod +x /var/www/sync.sh

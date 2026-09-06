@@ -39,8 +39,16 @@ function time_elapsed_string($datetime, $full = false)
     $ago = new \DateTime($datetime);
     $diff = $now->diff($ago);
 
-    $diff->w = floor($diff->d / 7);
-    $diff->d -= $diff->w * 7;
+    $weeks = floor($diff->d / 7);
+    $units = [
+        'y' => $diff->y,
+        'm' => $diff->m,
+        'w' => $weeks,
+        'd' => $diff->d - ($weeks * 7),
+        'h' => $diff->h,
+        'i' => $diff->i,
+        's' => $diff->s,
+    ];
 
     $string = [
         'y' => _s('year'),
@@ -52,18 +60,18 @@ function time_elapsed_string($datetime, $full = false)
         's' => _s('second'),
     ];
     foreach ($string as $k => &$v) {
-        if ($diff->$k) {
+        if ($units[$k]) {
             $times = [
-                'y' => _n('year', 'years', $diff->$k),
-                'm' => _n('month', 'months', $diff->$k),
-                'w' => _n('week', 'weeks', $diff->$k),
-                'd' => _n('day', 'days', $diff->$k),
-                'h' => _n('hour', 'hours', $diff->$k),
-                'i' => _n('minute', 'minutes', $diff->$k),
-                's' => _n('second', 'seconds', $diff->$k),
+                'y' => _n('year', 'years', $units[$k]),
+                'm' => _n('month', 'months', $units[$k]),
+                'w' => _n('week', 'weeks', $units[$k]),
+                'd' => _n('day', 'days', $units[$k]),
+                'h' => _n('hour', 'hours', $units[$k]),
+                'i' => _n('minute', 'minutes', $units[$k]),
+                's' => _n('second', 'seconds', $units[$k]),
             ];
 
-            $v = $diff->$k . ' ' . $times[$k];
+            $v = $units[$k] . ' ' . $times[$k];
         } else {
             unset($string[$k]);
         }
@@ -76,7 +84,7 @@ function time_elapsed_string($datetime, $full = false)
     return count($string) > 0 ? _s('%s ago', implode(', ', $string)) : _s('moments ago');
 }
 
-function missing_values_to_exception($object, $exception = Exception, $values_array, $code = 100)
+function missing_values_to_exception($object, $exception, $values_array, $code = 100)
 {
     if (!is_object($object)) {
         return;
@@ -625,7 +633,7 @@ function upload_to_content_images($source, $what)
         ];
 
         if (G\starts_with('homepage_cover_image_', $what)) {
-            $cover_handle = str_replace('homepage_cover_image_', null, $what);
+            $cover_handle = str_replace('homepage_cover_image_', '', $what);
             if ($cover_handle == 'add') {
                 $remove_old = false;
             } else {

@@ -390,7 +390,7 @@ function include_peafowl_foot()
     echo implode("\n", $echo);
 }
 
-function get_peafowl_item_list($tpl = 'image', $item, $template, $requester = null, $tools)
+function get_peafowl_item_list($tpl, $item, $template, $requester, $tools)
 {
     if (empty($requester)) {
         $requester = CHV\Login::getUser();

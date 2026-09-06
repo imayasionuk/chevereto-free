@@ -35,7 +35,7 @@ Chevereto-Free allows you to create an image hosting website on your own server.
 
 ## Requirements
 
-* PHP 7.4 (no PHP 8 support)
+* PHP 8.2+
 * MySQL 5.7 / 8 - MariaDB 10
 * Apache HTTP Web Server / Nginx
   * mod_rewrite

@@ -37,12 +37,11 @@ function check_system_integrity()
     @ini_set('session.gc_probability', true);
     @ini_set('session.use_trans_sid', false);
     @ini_set('session.use_only_cookies', true);
-    @ini_set('session.hash_bits_per_character', 4);
 
     $missing_tpl = '%n (<a href="http://php.net/manual/en/%t.%u.php" target="_blank">%f</a>) %t is disabled in this server. This %t must be enabled in your PHP configuration (php.ini) and/or you must add this missing %t.';
 
-    if (version_compare(PHP_VERSION, '5.6.0', '<')) {
-        $install_errors[] = 'This server is currently running PHP version '.PHP_VERSION.' and Chevereto needs at least PHP 5.6.0 to run. You need to update PHP in this server.';
+    if (version_compare(PHP_VERSION, '8.2.0', '<')) {
+        $install_errors[] = 'This server is currently running PHP version '.PHP_VERSION.' and Chevereto needs at least PHP 8.2.0 to run. You need to update PHP in this server.';
     }
     if (ini_get('allow_url_fopen') !== 1 && !function_exists('curl_init')) {
         $install_errors[] = "cURL isn't installed and allow_url_fopen is disabled. Chevereto needs one of these to perform HTTP requests to remote servers.";
@@ -107,8 +106,8 @@ function check_system_integrity()
 
     // Check those missing functions
     foreach ([
-        'utf8_encode' => 'UTF-8 encode',
-        'utf8_decode' => 'UTF-8 decode'
+        'mb_convert_encoding' => 'Multibyte convert encoding',
+        'mb_detect_encoding' => 'Multibyte detect encoding'
     ] as $k => $v) {
         if (!function_exists($k)) {
             $install_errors[] = strtr(str_replace('%t', 'function', $missing_tpl), ['%n' => $v, '%f' => $k, '%u' => str_replace('_', '-', $k)]);
@@ -175,7 +174,7 @@ function check_system_integrity()
             if (!$htaccess_file and $dir == G_APP_PATH) {
                 $install_errors[] = "Can't create " . G\absolute_to_relative($dir) . '.htaccess file. The file must be uploaded manually to this path.<br>
 				Alternatively you can create the file yourself with this contents:<br><br>
-				<pre><code>'.htmlspecialchars($htaccess_file).'</code></pre>';
+				<pre><code>'.htmlspecialchars($htaccess_file, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401).'</code></pre>';
             }
         }
     }

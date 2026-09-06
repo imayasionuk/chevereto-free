@@ -22,6 +22,8 @@ use Exception;
  */
 class ImageConvert
 {
+    public $out;
+
     public function __construct($source, $to, $destination, $quality=90)
     {
         $source_info = G\get_image_fileinfo($source);

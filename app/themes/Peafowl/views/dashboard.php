@@ -664,7 +664,7 @@ function get_docs_link($key, $subject)
                                 } ?>
 											<textarea type="text" name="page_code" id="page_code" class="text-input resize-vertical r14" <?php if (!$is_page_writable) {
                                     echo ' readonly';
-                                } ?>><?php echo (is_readable($page_path_absolute)) ? htmlspecialchars(file_get_contents($page_path_absolute)) : null; ?></textarea>
+                                } ?>><?php echo (is_readable($page_path_absolute)) ? htmlspecialchars(file_get_contents($page_path_absolute), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401) : null; ?></textarea>
 											<div class="input-below input-warning red-warning"><?php echo get_input_errors()['page_code']; ?></div>
 
 										</div>

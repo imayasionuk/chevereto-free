@@ -28,6 +28,33 @@ class Listing
 
     public $binds = [];
 
+    public $type;
+    public $category;
+    public $count;
+    public $has_page_next;
+    public $has_page_prev;
+    public $items_per_page;
+    public $limit;
+    public $nsfw;
+    public $offset;
+    public $output_assoc;
+    public $output_count;
+    public $output_tpl;
+    public $owner;
+    public $params_hidden;
+    public $privacy;
+    public $query;
+    public $requester;
+    public $reverse;
+    public $seek;
+    public $seekEnd;
+    public $seekStart;
+    public $sfw;
+    public $sort_order;
+    public $sort_type;
+    public $tools;
+    public $where;
+
     public function debugQuery()
     {
         if (!isset($this->query)) {
@@ -237,7 +264,7 @@ class Listing
 
         // Attempt to add explicit clauses
         if (!empty($this->where)) {
-            $where_clauses = explode(' ', str_ireplace('WHERE ', null, $this->where));
+            $where_clauses = explode(' ', str_ireplace('WHERE ', '', $this->where));
             $where_arr = [];
             foreach ($where_clauses as $clause) {
                 if (!preg_match('/\./', $clause)) {
@@ -802,7 +829,7 @@ class Listing
 
         foreach ($regex as $file) {
             $file = G\forward_slash($file[0]);
-            $key = preg_replace('/\\.[^.\\s]{3,4}$/', '', str_replace(G_APP_PATH_THEME, null, $file));
+            $key = preg_replace('/\\.[^.\\s]{3,4}$/', '', str_replace(G_APP_PATH_THEME, '', $file));
             $override_file = G\str_replace_first(G_APP_PATH_THEME, G_APP_PATH_THEME . 'overrides/', $file);
             if (is_readable($override_file)) {
                 $file = $override_file;

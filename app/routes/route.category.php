@@ -65,7 +65,7 @@ $route = function ($handler) {
 
         $meta_description = $category['description'] ?: null;
 
-        $handler::setVar('meta_description', htmlspecialchars($meta_description));
+        $handler::setVar('meta_description', htmlspecialchars($meta_description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
         $handler::setVar('category', $category);
         $handler::setVar('tabs', $tabs);
         $handler::setVar('list', $list);

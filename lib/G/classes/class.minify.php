@@ -34,6 +34,22 @@ class Minify {
 	protected static $default_options = ['forced' => false, 'source_method' => 'file', 'output' => 'file'];
     protected static $JShrink_defaultOptions = ['flaggedComments' => false];
     protected $locks = [];
+
+    public $a;
+    public $b;
+    public $c;
+    public $data;
+    public $forced;
+    public $index;
+    public $input;
+    public $jsh_options;
+    public $minified_data;
+    public $options;
+    public $result;
+    public $source;
+    public $source_method;
+    public $target;
+    public $type;
 	
 	function __construct($options=[]) {
 		$this->options = array_merge(static::$default_options, (array)$options);
@@ -291,7 +307,7 @@ class Minify {
 			break;
 		}
 		
-		return preg_replace('#'.$pattern.'#', NULL, $string);
+		return preg_replace('#'.$pattern.'#', '', $string);
 	}
 	
 	/* Now the JShrink components */
@@ -359,6 +375,7 @@ class Minify {
 
         // Populate "a" with a new line, "b" with the first character, before
         // entering the loop
+        $this->index = 0;
         $this->a = "\n";
         $this->b = $this->getReal();
     }
@@ -463,7 +480,9 @@ class Minify {
             $char = substr($this->input, $this->index, 1);
 
             // If the next character doesn't exist return false.
-            if (isset($char) && $char === false) {
+            // Note: as of PHP 8.0 substr() returns an empty string (instead of
+            // false) when reading past the end of the string.
+            if ($char === false || $char === '') {
                 return false;
             }
 
@@ -556,7 +575,7 @@ class Minify {
             $char = $this->getChar(); // get next real character
 
             // Now we reinsert conditional comments and YUI-style licensing comments
-            if (($this->options['flaggedComments'] && $thirdCommentString == '!')
+            if (($this->jsh_options['flaggedComments'] && $thirdCommentString == '!')
                 || ($thirdCommentString == '@') ) {
 
                 // If conditional comments or flagged comments are not the first thing in the script

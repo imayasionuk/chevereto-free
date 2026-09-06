@@ -38,6 +38,7 @@ class DB
 
     public static $dbh;
     public $query;
+    private $pdo_default_attrs;
 
     /**
      * Connect to the DB server

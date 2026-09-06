@@ -37,6 +37,21 @@ class Handler
     public static $prevented_route;
     public static $mapped_args;
 
+    public $base_url;
+    public $canonical_request;
+    public $checkIndexRedirect;
+    public $handled_request;
+    public $hook_template;
+    public $is404;
+    public $path_theme;
+    public $relative_root;
+    public $request;
+    public $request_array;
+    public $request_uri;
+    public $script_name;
+    public $template;
+    public $valid_request;
+
     /**
      * Build a valid request
      */

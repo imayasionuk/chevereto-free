@@ -30,7 +30,7 @@ foreach ($tabs as $tab) {
                                                         } ?>" data-visibility="<?php echo $classic ? 'visible' : 'hidden'; ?>" data-content="listing-pagination" data-type="<?php echo $classic ? 'classic' : 'endless'; ?>">
                             <?php
                                                 $currentUrlPath = G\add_ending_slash(preg_replace('/\?.*/', '', CHV\get_current_url()));
-                                                $QS = filter_input(INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING);
+                                                $QS = filter_input(INPUT_SERVER, 'QUERY_STRING', FILTER_UNSAFE_RAW) ?? '';
                                                 parse_str($QS, $current_page_qs);
                                                 unset($current_page_qs['lang']); // Get rid of any ?lang=
                                                 $current_url = $currentUrlPath . '?' . http_build_query($current_page_qs);

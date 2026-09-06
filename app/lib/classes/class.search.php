@@ -21,6 +21,16 @@ class Search
 {
     public static $excluded = ['storage', 'ip'];
 
+    public $DBEngine;
+    public $binds;
+    public $display;
+    public $op;
+    public $q;
+    public $request;
+    public $requester;
+    public $type;
+    public $wheres;
+
     public function __construct()
     {
         $this->DBEngine = DB::queryFetchSingle("SHOW TABLE STATUS WHERE Name = '".DB::getTable('images')."';")['Engine'];

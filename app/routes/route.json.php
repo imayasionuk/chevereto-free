@@ -1187,7 +1187,7 @@ $route = function ($handler) {
                 if ($_REQUEST['id'] == null) {
                     throw new Exception('Invalid request', 100);
                 }
-                $thing = str_replace('Id', null, $doing);
+                $thing = str_replace('Id', '', $doing);
                 $id = $_REQUEST['id'];
                 $fn = 'CHV\\' . $thing . 'ID';
                 $res = $fn($id);

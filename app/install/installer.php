@@ -735,7 +735,7 @@ WHERE NOT EXISTS (SELECT * FROM `%table_prefix%imports` WHERE `import_path`='%ro
                             case 'ALTER':
                                 // Duplicated index
                                 if ($DB_indexes[$table]['searchindex'] and strpos($columns['prop'], 'CREATE FULLTEXT INDEX `searchindex`') !== false) {
-                                    continue;
+                                    continue 2;
                                 }
                                 $sql_update[] = strtr('ALTER TABLE `%table_prefix%' . $table . '` %prop; %tail', ['%prop' => $columns['prop'], '%tail' => $columns['tail']]);
                                 break;

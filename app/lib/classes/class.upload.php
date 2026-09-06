@@ -33,6 +33,21 @@ class Upload
     public $uploaded;
     public $detectFlood = true;
 
+    public $ImageConvert;
+    public $destination;
+    public $downstream;
+    public $extension;
+    public $fixed_filename;
+    public $name;
+    public $options;
+    public $source_filename;
+    public $source_image_exif;
+    public $source_image_fileinfo;
+    public $source_name;
+    public $storage_id;
+    public $type;
+    public $uploaded_file;
+
     public function checkValidUrl(string $url): void
     {
         $aux = strtolower($url);

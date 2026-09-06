@@ -24,6 +24,17 @@ class Imageresize
     // name => name
 
     public $resized;
+    public $source;
+    public $destination;
+    public $filename;
+    public $file_extension;
+    public $options;
+    public $fixed;
+    public $width;
+    public $height;
+    public $resized_file;
+    public $resized_file_extension;
+    public $source_image_fileinfo;
 
     public function setSource($source)
     {

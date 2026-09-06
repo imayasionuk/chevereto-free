@@ -44,8 +44,8 @@ $route = function($handler) {
 	// Add page meta data
 	$page_metas = [
 		'pre_doctitle'		=> $page['title'],
-		'meta_description'	=> htmlspecialchars($page['description']),
-		'meta_keywords'		=> htmlspecialchars($page['keywords'])
+		'meta_description'	=> htmlspecialchars($page['description'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401),
+		'meta_keywords'		=> htmlspecialchars($page['keywords'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401)
 	];
 	foreach($page_metas as $k => $v) {
 		if($v == NULL) continue;

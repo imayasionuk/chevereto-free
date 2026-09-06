@@ -415,7 +415,7 @@ $route = function ($handler) {
                     if ($handler->request[1] == 'pages') {
                         $page_file_path_clean = trim(G\sanitize_relative_path($_POST['page_file_path']), '/');
 
-                        $_POST['page_file_path'] = str_replace('default/', null, $page_file_path_clean);
+                        $_POST['page_file_path'] = str_replace('default/', '', $page_file_path_clean);
                         $_POST['page_file_path_absolute'] = CHV\Page::getPath($_POST['page_file_path']);
 
                         // Invalid page sort display
@@ -955,7 +955,7 @@ $route = function ($handler) {
                             // Try to edit / add a page
                             if (in_array($handler->request[2], ['edit', 'add']) and $_POST['page_type'] == 'internal') {
                                 // Try to write page source code
-                                $page_write_contents = (array_key_exists('page_code', $_POST)) ? (!empty($_POST['page_code']) ? html_entity_decode($_POST['page_code']) : null) : null;
+                                $page_write_contents = (array_key_exists('page_code', $_POST)) ? (!empty($_POST['page_code']) ? html_entity_decode($_POST['page_code'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401) : null) : null;
                                 try {
                                     CHV\Page::writePage(['file_path' => $_POST['page_file_path'], 'contents' => $page_write_contents]);
                                     // Delete old file if we are editing, file_path isn't null (default) and file path changed

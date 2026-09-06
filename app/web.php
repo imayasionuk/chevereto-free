@@ -100,7 +100,7 @@ foreach ([
                         'url' => get_system_image_url($vv),
                     ];
                 } else {
-                    $homepage_cover_image = rtrim(preg_replace('/,+/', ',', str_replace($vv, null, $homepage_cover_image)), ',');
+                    $homepage_cover_image = rtrim(preg_replace('/,+/', ',', str_replace($vv, '', $homepage_cover_image)), ',');
                 }
             }
         }
@@ -166,7 +166,7 @@ try {
             if (array_key_exists('agree-consent', $_GET)) {
                 setcookie('AGREE_CONSENT', 1, time() + (60 * 60 * 24 * 30), G_ROOT_PATH_RELATIVE); // 30-day cookie
                 $_SESSION['agree-consent'] = true;
-                G\redirect(preg_replace('/([&\?]agree-consent)/', null, G\get_current_url()));
+                G\redirect(preg_replace('/([&\?]agree-consent)/', '', G\get_current_url()));
             }
 
             $base = $handler::$base_request;

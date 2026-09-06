@@ -218,7 +218,7 @@ $route = function ($handler) {
                 $meta_description = _s('Image %i hosted in %w', $image_tr);
             }
         }
-        $handler::setVar('meta_description', htmlspecialchars($meta_description));
+        $handler::setVar('meta_description', htmlspecialchars($meta_description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
 
         if ($handler::getCond('content_manager') or $is_owner) {
             $handler::setVar('user_items_editor', [
@@ -286,7 +286,7 @@ $route = function ($handler) {
             'entries' => [
                 [
                     'label' => 'HTML',
-                    'value' => htmlentities($image_full['html']),
+                    'value' => htmlentities($image_full['html'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401),
                 ],
                 [
                     'label' => 'BBCode',
@@ -308,7 +308,7 @@ $route = function ($handler) {
             'entries' => [
                 [
                     'label' => 'HTML',
-                    'value' => htmlentities($embed_full_linked['html']),
+                    'value' => htmlentities($embed_full_linked['html'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401),
                 ],
                 [
                     'label' => 'BBCode',
@@ -332,7 +332,7 @@ $route = function ($handler) {
                 'entries' => [
                     [
                         'label' => 'HTML',
-                        'value' => htmlentities($embed_medium_linked['html']),
+                        'value' => htmlentities($embed_medium_linked['html'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401),
                     ],
                     [
                         'label' => 'BBCode',
@@ -357,7 +357,7 @@ $route = function ($handler) {
             'entries' => [
                 [
                     'label' => 'HTML',
-                    'value' => htmlentities($embed_thumb_linked['html']),
+                    'value' => htmlentities($embed_thumb_linked['html'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401),
                 ],
                 [
                     'label' => 'BBCode',
